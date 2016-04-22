@@ -1,0 +1,12 @@
+# Directories
+iso/
+
+# Object Files
+*.[oa]
+*.kernel
+*.dis
+*.iso
+
+# Temp Files
+*.*[~]
+*.swp
