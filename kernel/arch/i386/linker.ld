@@ -4,29 +4,30 @@ SECTIONS
 {
 	. = 1M;
 
-	.text BLOCK(4K) : ALIGN(4K)
+	.text :
 	{
 		*(.multiboot .text)
 	}
 	PROVIDE(etext = .);
 
-	.rodata BLOCK(4K) : ALIGN(4K)
+	.rodata :
 	{
 		*(.rodata)
 	}
 
+	. = ALIGN(0x1000);
 	PROVIDE(data = .);
 
-	.data BLOCK(4K) : ALIGN(4K)
+	.data  :
 	{
 		*(.data)
 	}
 
 	PROVIDE(edata = .);
 
-	.bss BLOCK(4K) : ALIGN(4K)
+	.bss :
 	{
-		*(.bss)
+		*(.bss *._stack)
 	}
 
 	PROVIDE(end = .);
