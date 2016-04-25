@@ -1,11 +1,8 @@
 #ifndef _STRING_H
-#define _STRING_H 1
+#define _STRING_H
 
-#include <stddef.h>
-#include <stdint.h>
-
-size_t strlen(const uint8_t*);
-void reverse(uint8_t string[]);
-void itoa(int32_t n, uint8_t s[]);
+int strlen(const char*);
+void reverse(char string[]);
+void itoa(int n, char s[], int radix);
 
 #endif

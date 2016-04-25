@@ -2,10 +2,8 @@
 #include <stdint.h>
 
 #include <string.h>
-
 #include <kernel/tty.h>
-#include <kernel/mmu.h>
-#include <kernel/types.h>
+#include <kernel/paging.h>
 
 #if defined(__linux__)
 #error "You are not using a cross-compiler!"
@@ -15,18 +13,32 @@
 #error "This needs to be compiled with an ix86-elf compiler"
 #endif
 
-pd_t page_directory[];
+extern char etext[];
+extern char data[];
+extern char edata[];
+extern char end[];
 
-void kmain()
+
+void main(PD page_directory)
 {
 	terminal_initialize();
+	terminal_writestring("Hello world!\n");
 
-	char* string = "Hello world!\n";
-	terminal_writestring((uint8_t*) string);
+	char buffer[12];
+	terminal_writestring("End of .text address: ");
+	itoa((int) &etext, buffer, 16);
+	terminal_writestring(buffer);
+	terminal_writestring("\n");
+	terminal_writestring("Begin of data address: ");
+	itoa((int) &data, buffer, 16);
+	terminal_writestring(buffer);
+	terminal_writestring("\n");
+	terminal_writestring("End of data address: ");
+	itoa((int) &edata, buffer, 16);
+	terminal_writestring(buffer);
+	terminal_writestring("\n");
+	terminal_writestring("End of ELF address: ");
+	itoa((int) &end, buffer, 16);
+	terminal_writestring(buffer);
+	terminal_writestring("\n");
 }
-
-__attribute__((__aligned__(PGSIZE)))
-pd_t page_directory[NPDENTRIES] = {
-	[0] = (0) | PDE_PRESENT | PDE_RW | PDE_SIZE,
-	[512] = (0) | PDE_PRESENT | PDE_RW | PDE_SIZE
-};

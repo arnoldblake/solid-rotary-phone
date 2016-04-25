@@ -3,11 +3,10 @@
 
 #include <string.h>
 
-void itoa(int32_t n, uint8_t s[])
+void itoa(int n, char s[], int radix)
 {
-	size_t i;
-	uint32_t sign;
-	
+	int i, sign;
+
 	if ((sign = n) < 0)
 	{
 		n = -n;
@@ -15,13 +14,23 @@ void itoa(int32_t n, uint8_t s[])
 	i = 0;
 	do
 	{
-		s[i++] = n % 10 + '0';
+		s[i] = n % radix + '0';
+		switch (radix) {
+			case 16:
+				if (s[i] > 57)
+				{
+					s[i] += 7;
+				}
+				break;
+		}
+		i++;
+
 	}
-	while ((n /= 10) > 0);
+	while ((n /= radix) > 0);
 	if (sign < 0)
 	{
 		s[i++] = '-';
 	}
 	s[i] = '\0';
-	reverse(s);	
+	reverse(s);
 }

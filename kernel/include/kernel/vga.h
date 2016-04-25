@@ -1,13 +1,6 @@
 #ifndef _KERNEL_VGA_H
 #define _KERNEL_VGA_H
 
-#include <stdint.h>
-
-//#define VGA_WIDTH 25;
-//#define VGA_HEIGHT 80;
-
-#define TOLINEAR(x, y, z) y * z + x
-
 typedef enum
 {
   COLOR_BLACK = 0,
@@ -28,12 +21,12 @@ typedef enum
   COLOR_WHITE = 15,
 } vga_color;
 
-static inline uint8_t make_color(vga_color fg, vga_color bg);
-static inline uint16_t make_vgaentry(char c, uint8_t color);
+static inline char make_color(vga_color fg, vga_color bg);
+static inline short make_vgaentry(char c, char color);
 
-static const size_t VGA_WIDTH;
-static const size_t VGA_HEIGHT;
+static const int VGA_WIDTH;
+static const int VGA_HEIGHT;
 
-static uint16_t* const VGA_MEMORY;
+static short* const VGA_MEMORY;
 
 #endif

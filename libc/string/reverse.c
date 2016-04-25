@@ -1,10 +1,10 @@
 #include <string.h>
 
-void reverse (uint8_t string[])
+void reverse (char string[])
 {
-	size_t i, j;
-	uint8_t c;
-	
+	int i, j;
+	char c;
+
 	for (i = 0, j = strlen(string) - 1; i < j; i++, j--)
 	{
 		c = string[i];

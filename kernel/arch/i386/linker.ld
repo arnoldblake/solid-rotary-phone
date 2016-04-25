@@ -1,33 +1,34 @@
 ENTRY(_start)
 
 SECTIONS
-{  	
+{
 	. = 1M;
 
-	/* Code */
 	.text BLOCK(4K) : ALIGN(4K)
 	{
-		*(.multiboot)
-		*(.text)
+		*(.multiboot .text)
 	}
-	
-	/* Initialized Read Only Data */
+	PROVIDE(etext = .);
+
 	.rodata BLOCK(4K) : ALIGN(4K)
 	{
 		*(.rodata)
 	}
-	
-	/* Initialized Data */
+
+	PROVIDE(data = .);
+
 	.data BLOCK(4K) : ALIGN(4K)
 	{
 		*(.data)
 	}
-	
-	/* Un-initialized Data */
+
+	PROVIDE(edata = .);
+
 	.bss BLOCK(4K) : ALIGN(4K)
 	{
-		*(COMMON)
 		*(.bss)
-		*(._stack)
 	}
+
+	PROVIDE(end = .);
+
 }

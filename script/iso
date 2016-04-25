@@ -6,10 +6,12 @@ mkdir -p iso
 mkdir -p iso/boot
 mkdir -p iso/boot/grub
 
-cp kernel/bos.kernel iso/boot/bos.kernel
+cp kernel/bos.kernel iso/boot/kernel
 cat > iso/boot/grub/grub.cfg << EOF
 menuentry "BOS" {
-	multiboot /boot/bos.kernel
+	echo "Loading ${kernel}..."
+	multiboot /boot/kernel
+	boot
 }
 EOF
 grub-mkrescue -o bos.iso iso
