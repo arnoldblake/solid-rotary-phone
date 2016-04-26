@@ -1,12 +1,15 @@
 #!/bin/sh
 
-make -C kernel bos.kernel
+set -e
+. script/clean
+
+make -C bos bos.kernel
 
 mkdir -p iso
 mkdir -p iso/boot
 mkdir -p iso/boot/grub
 
-cp kernel/bos.kernel iso/boot/kernel
+cp bos/bos.kernel iso/boot/kernel
 cat > iso/boot/grub/grub.cfg << EOF
 menuentry "BOS" {
 	echo "Loading ${kernel}..."

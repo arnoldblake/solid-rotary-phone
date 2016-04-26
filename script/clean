@@ -1,0 +1,4 @@
+#!/bin/sh
+
+make -C bos clean
+rm -rf iso bos.iso

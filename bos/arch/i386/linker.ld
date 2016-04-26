@@ -27,9 +27,13 @@ SECTIONS
 
 	.bss :
 	{
-		*(.bss *._stack)
+		*(.bss)
+	}
+
+	.stack :
+	{
+	 *(.stack)
 	}
 
 	PROVIDE(end = .);
-
 }

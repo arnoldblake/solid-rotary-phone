@@ -13,10 +13,14 @@
 #error "This needs to be compiled with an ix86-elf compiler"
 #endif
 
+// Provided by linker.ld
 extern char etext[];
 extern char data[];
 extern char edata[];
 extern char end[];
+
+extern unsigned int stack_bottom;
+extern unsigned int stack_top;
 
 
 void main(PD page_directory)
@@ -39,6 +43,10 @@ void main(PD page_directory)
 	terminal_writestring("\n");
 	terminal_writestring("End of ELF address: ");
 	itoa((int) &end, buffer, 16);
+	terminal_writestring(buffer);
+	terminal_writestring("\n");
+	terminal_writestring("Begin of stack address: ");
+	itoa((int) &stack_bottom, buffer, 16);
 	terminal_writestring(buffer);
 	terminal_writestring("\n");
 }

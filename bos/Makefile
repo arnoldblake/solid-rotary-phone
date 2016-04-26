@@ -52,13 +52,8 @@ all: bos.kernel
 # Link
 bos.kernel: $(OBJ) $(ARCHDIR)/linker.ld
 	$(CC) -T $(ARCHDIR)/linker.ld -o $@ $(CFLAGS) $(OBJ) $(LFLAGS) $(LIB)
-	
-# Dump
-boot.dis: $(DIR)/kernel/arch/i386/boot/boot.o
-	od -t x1 -A n $^ >> $@
+
 
 # Clean
 clean:
 	rm -f bos.kernel $(OBJ)
-	rm -f $(DIR)/kernel/boot.dis
-

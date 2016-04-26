@@ -55,7 +55,10 @@ hang:
 	hlt
 	jmp hang
 
-section ._stack
+section .stack
 align 4
-resb STACK_SIZE
+global stack_bottom
+global stack_top
+stack_bottom:
+	resb STACK_SIZE
 stack_top:
