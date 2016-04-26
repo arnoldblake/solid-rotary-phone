@@ -10,3 +10,6 @@ iso/
 # Temp Files
 *.*[~]
 *.swp
+
+# Log Files
+bochs.log

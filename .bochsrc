@@ -2,3 +2,16 @@ ata0: enabled=1, ioaddr1=0x1f0, ioaddr2=0x3f0, irq=14
 ata1: enabled=1, ioaddr1=0x170, ioaddr2=0x370, irq=15
 ata0-master: type=cdrom, path="bos.iso", status=inserted
 boot: cdrom
+
+# Debug log file
+debugger_log: -
+
+# Log file
+log : bochs.log
+
+# Log Controls
+panic: action=ask
+error: action=report
+info: action=report
+debug: action=ignore
+#pass: action=fatal
