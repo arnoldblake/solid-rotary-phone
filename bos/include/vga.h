@@ -1,5 +1,12 @@
-#ifndef _KERNEL_VGA_H
-#define _KERNEL_VGA_H
+#ifndef __VGA_H
+#define __VGA_H
+
+#define VGAPORT 0x3D4
+#define VGAMEMORY 0xB8000
+
+#define VGAWIDTH 80
+
+#define VGACOLOR(x,y) (y << 8 | x << 4)
 
 typedef enum
 {
@@ -19,14 +26,9 @@ typedef enum
   COLOR_LIGHT_MAGENTA = 13,
   COLOR_LIGHT_BROWN = 14,
   COLOR_WHITE = 15,
-} vga_color;
+} VGA_COLOR;
 
-static inline char make_color(vga_color fg, vga_color bg);
-static inline short make_vgaentry(char c, char color);
-
-static const int VGA_WIDTH;
-static const int VGA_HEIGHT;
-
-static short* const VGA_MEMORY;
+void print(char* string);
+void printf(char* string, ...);
 
 #endif

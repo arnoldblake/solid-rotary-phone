@@ -2,8 +2,8 @@
 #include <stdint.h>
 
 #include <string.h>
-#include <kernel/tty.h>
 #include <kernel/paging.h>
+#include <vga.h>
 
 #if defined(__linux__)
 #error "You are not using a cross-compiler!"
@@ -23,30 +23,13 @@ extern unsigned int stack_bottom;
 extern unsigned int stack_top;
 
 
-void main(PD page_directory)
+void main(PD* page_directory)
 {
-	terminal_initialize();
-	terminal_writestring("Hello world!\n");
-
-	char buffer[12];
-	terminal_writestring("End of .text address: ");
-	itoa((int) &etext, buffer, 16);
-	terminal_writestring(buffer);
-	terminal_writestring("\n");
-	terminal_writestring("Begin of data address: ");
-	itoa((int) &data, buffer, 16);
-	terminal_writestring(buffer);
-	terminal_writestring("\n");
-	terminal_writestring("End of data address: ");
-	itoa((int) &edata, buffer, 16);
-	terminal_writestring(buffer);
-	terminal_writestring("\n");
-	terminal_writestring("End of ELF address: ");
-	itoa((int) &end, buffer, 16);
-	terminal_writestring(buffer);
-	terminal_writestring("\n");
-	terminal_writestring("Begin of stack address: ");
-	itoa((int) &stack_bottom, buffer, 16);
-	terminal_writestring(buffer);
-	terminal_writestring("\n");
+	printf("ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890\n");
+	printf("End of .text address: %x\n", &etext);
+	printf("Begin of data address: %x\n", &data);
+	printf("End of data address: %x\n", &edata);
+	printf("End of ELF address: %x\n", &end);
+	printf("Top of stack address: %x\n", &stack_top);
+	printf("Page Directory address: %x\n", page_directory);
 }

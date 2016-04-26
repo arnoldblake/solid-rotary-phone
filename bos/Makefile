@@ -28,7 +28,7 @@ $(LIBC_OBJ)
 CC=~/opt/cross/bin/i686-elf-gcc
 
 CFLAGS?=-O2 -g
-CFLAGS:=$(CFLAGS) -ffreestanding -fbuiltin -Wall -Wextra -Iinclude -I../libc/include
+CFLAGS:=$(CFLAGS) -ffreestanding -fno-builtin -Wall -Wextra -Iinclude -I../libc/include
 
 AS=nasm
 AFLAGS=-felf32

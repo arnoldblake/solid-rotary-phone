@@ -24,7 +24,6 @@ void itoa(int n, char s[], int radix)
 				break;
 		}
 		i++;
-
 	}
 	while ((n /= radix) > 0);
 	if (sign < 0)
