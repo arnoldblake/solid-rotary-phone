@@ -3,6 +3,7 @@ ENTRY(_start)
 SECTIONS
 {
 	. = 1M;
+	PROVIDE(text = .);
 
 	.text :
 	{

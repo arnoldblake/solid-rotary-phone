@@ -2,7 +2,7 @@
 #define __X86_H
 
 static inline unsigned char
-inb(unsigned short port)
+inb (unsigned short port)
 {
   unsigned char data;
 
@@ -11,9 +11,21 @@ inb(unsigned short port)
 }
 
 static inline void
-outb(unsigned short port, unsigned char data)
+outb (unsigned short port, unsigned char data)
 {
   asm volatile("out %0,%1" : : "a" (data), "d" (port));
+}
+
+static inline void
+cli (void)
+{
+  asm volatile("cli");
+}
+
+static inline void
+sti (void)
+{
+  asm volatile("sti");
 }
 
 #endif

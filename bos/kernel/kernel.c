@@ -1,9 +1,9 @@
-#include <stddef.h>
-#include <stdint.h>
+#include <multiboot.h>
+
+#include <kernel/paging.h>
+#include <kernel/vga.h>
 
 #include <string.h>
-#include <kernel/paging.h>
-#include <vga.h>
 
 #if defined(__linux__)
 #error "You are not using a cross-compiler!"
@@ -14,22 +14,14 @@
 #endif
 
 // Provided by linker.ld
-extern char etext[];
-extern char data[];
-extern char edata[];
-extern char end[];
+extern char text[], etext[], data[], edata[], end[];
+// Stack
+extern unsigned int stack_bottom, stack_top;
 
-extern unsigned int stack_bottom;
-extern unsigned int stack_top;
-
-
-void main(PD* page_directory)
+void main(multiboot_info_t* mbd, unsigned int magic)
 {
 	printf("ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890\n");
-	printf("End of .text address: %x\n", &etext);
-	printf("Begin of data address: %x\n", &data);
-	printf("End of data address: %x\n", &edata);
 	printf("End of ELF address: %x\n", &end);
-	printf("Top of stack address: %x\n", &stack_top);
-	printf("Page Directory address: %x\n", page_directory);
+	printf("Multiboot info: %x Lower Memory: %dKB Upper Memory: %dKB",
+		magic, mbd->mem_lower, mbd->mem_upper);
 }

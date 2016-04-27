@@ -14,6 +14,7 @@ CHECKSUM    equ -(MAGIC + FLAGS)        ; checksum of above, to prove we are mul
 
 section .multiboot
 align 4
+
 	dd MAGIC
 	dd FLAGS
 	dd CHECKSUM
@@ -21,34 +22,30 @@ align 4
 ;-------------------------------------------------------------------------
 ; START                                                                  |
 ;-------------------------------------------------------------------------
+
 section .text
 global _start
 extern page_directory
-_start:
+extern main
 
+_start:
+; Stack setup
+	mov esp, stack_top
+	push eax
+	push ebx
 ; Enable 4MB paging
 	mov eax, cr4
 	or 	eax, 0x00000010
 	mov cr4, eax
-
 ; Set page directory
 	mov eax, page_directory
 	mov cr3, eax
-
 ; Enable paging
 	mov eax, cr0
 	or	eax, 0x80010000
 	mov cr0, eax
-
-; Stack setup
-	mov esp, stack_top
-
-	mov eax, page_directory
-	push eax
-
-	extern main
+; Call Kernel Main
 	call main
-
 ; We shouldn't return to here
 hang:
 	cli
@@ -59,6 +56,7 @@ section .stack
 align 4
 global stack_bottom
 global stack_top
+
 stack_bottom:
 	resb STACK_SIZE
 stack_top:

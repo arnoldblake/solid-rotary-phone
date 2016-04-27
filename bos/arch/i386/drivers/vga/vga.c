@@ -1,5 +1,5 @@
-#include <vga.h>
-#include <x86.h>
+#include <kernel/vga.h>
+#include <kernel/x86.h>
 #include <string.h>
 
 static unsigned short* buffer = (unsigned short*) VGAMEMORY;
@@ -59,6 +59,11 @@ void printf(char* string, ...)
     {
       case 'x':
       itoa(*argp++, buffer, 16);
+      print(buffer);
+      break;
+
+      case 'd':
+      itoa(*argp++, buffer, 10);
       print(buffer);
       break;
     }
