@@ -1,4 +1,4 @@
-#include <kernel/paging.h>
+#include <paging.h>
 
 struct run
 {

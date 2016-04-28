@@ -1,7 +1,7 @@
 #ifndef __PAGING_H
 #define __PAGING_H
 
-#include <kernel/types.h>
+#include <types.h>
 
 #define PE_P        0x001   // Present if set otherwise not present in memory
 #define PE_W        0x002   // Write if set otherwise read only
@@ -20,6 +20,7 @@
 #define PGROUNDUP(x) ((x + PGSIZE - 1) & ~(PGSIZE - 1))
 #define PGROUNDDOWN(x) ((x) & ~(PGSIZE -1))
 
+__attribute__((__aligned__(PGSIZE)))
 PD page_directory[PDSIZE];
 
 #endif

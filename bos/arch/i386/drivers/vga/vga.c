@@ -1,5 +1,5 @@
-#include <kernel/vga.h>
-#include <kernel/x86.h>
+#include <vga.h>
+#include <x86.h>
 #include <string.h>
 
 static unsigned short* buffer = (unsigned short*) VGAMEMORY;

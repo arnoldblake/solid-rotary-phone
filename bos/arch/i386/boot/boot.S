@@ -1,7 +1,7 @@
 ; Blake Arnold 21-4-16
 ; Removed include lines. Make was not picking up changes to the files
 
-%define STACK_SIZE 0x4000	;16k stack
+%define STACK_SIZE 0x1000	;4k stack
 
 ;-------------------------------------------------------------------------
 ; MULTIBOOT                                                              |
@@ -20,7 +20,7 @@ align 4
 	dd CHECKSUM
 
 ;-------------------------------------------------------------------------
-; START                                                                  |
+; Entry                                                                  |
 ;-------------------------------------------------------------------------
 
 section .text
@@ -30,7 +30,7 @@ extern main
 
 _start:
 ; Stack setup
-	mov esp, stack_top
+	mov esp, stack + STACK_SIZE
 	push eax
 	push ebx
 ; Enable 4MB paging
@@ -47,16 +47,14 @@ _start:
 ; Call Kernel Main
 	call main
 ; We shouldn't return to here
-hang:
 	cli
 	hlt
-	jmp hang
+	jmp $
 
-section .stack
+;-------------------------------------------------------------------------
+; Entry                                                                  |
+;-------------------------------------------------------------------------
+
+section .bss
 align 4
-global stack_bottom
-global stack_top
-
-stack_bottom:
-	resb STACK_SIZE
-stack_top:
+stack	resb STACK_SIZE

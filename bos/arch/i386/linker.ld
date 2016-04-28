@@ -31,10 +31,5 @@ SECTIONS
 		*(.bss)
 	}
 
-	.stack :
-	{
-	 *(.stack)
-	}
-
 	PROVIDE(end = .);
 }
